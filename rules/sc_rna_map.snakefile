@@ -13,14 +13,14 @@ rule STARsolo:
 		mapindex = config["genome"]["mapindex"],
 		whitelist = config["barcode"]["whitelist"]
 	output: 
-		bam = "Result/STAR/{sample}Aligned.sortedByCoord.out.bam",
-		bai = "Result/STAR/{sample}Aligned.sortedByCoord.out.bam.bai",
-		rawmtx = "Result/STAR/{sample}Solo.out/Gene/raw/matrix.mtx",
-		feature = "Result/STAR/{sample}Solo.out/Gene/raw/features.tsv",
-		barcode = "Result/STAR/{sample}Solo.out/Gene/raw/barcodes.tsv"
+		bam = "Result/STAR/{sample}/{sample}Aligned.sortedByCoord.out.bam",
+		bai = "Result/STAR/{sample}/{sample}Aligned.sortedByCoord.out.bam.bai",
+		rawmtx = "Result/STAR/{sample}/{sample}Solo.out/Gene/raw/matrix.mtx",
+		feature = "Result/STAR/{sample}/{sample}Solo.out/Gene/raw/features.tsv",
+		barcode = "Result/STAR/{sample}/{sample}Solo.out/Gene/raw/barcodes.tsv"
 	params:
 		star_custom = config.get("STARsolo_custom", ""),
-		outdir = "Result/STAR/" + "{sample}",
+		outprefix = "Result/STAR/" + "{sample}/{sample}",
 		transcript = lambda wildcards: ','.join(FILES[wildcards.sample]["R2"]),
 		barcode = lambda wildcards: ','.join(FILES[wildcards.sample]["R1"]),
 		barcodestart = config["barcode"]["barcodestart"],
@@ -41,7 +41,7 @@ rule STARsolo:
 			--runMode alignReads \
 			--genomeDir {input.mapindex} \
 			--runThreadN {threads} \
-			--outFileNamePrefix {params.outdir} \
+			--outFileNamePrefix {params.outprefix} \
 			--outSAMtype BAM SortedByCoordinate \
 			--outSAMattributes NH HI nM AS CR UR CB UB GX GN sS sQ sM \
 			--soloType CB_UMI_Simple \
