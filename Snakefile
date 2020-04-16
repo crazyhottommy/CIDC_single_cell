@@ -17,7 +17,7 @@ STAR_MAT = expand("Result/STAR/{sample}Solo.out/Gene/raw/matrix.mtx", sample= AL
 TARGETS = STAR_BAM + STAR_MAT + STAR_BAI
 
 rule all:
-    input: TARGETS
+	input: TARGETS
 
 if config["platform"] == "10x-genomics":
-    include: "rules/sc_rna_map.snakefile"
+	include: "rules/sc_rna_map.snakefile"
