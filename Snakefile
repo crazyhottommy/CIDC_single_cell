@@ -5,6 +5,7 @@ Author: Ming (Tommy) Tang  04/16/2020
 
 configfile: "config.yaml"
 
+include: "rules/common.snakefile"
 # load the samples.json file
 FILES = json.load(open(config['SAMPLES_JSON']))
 ALL_SAMPLES = sorted(FILES.keys())

@@ -11,6 +11,7 @@ rule STARsolo:
 	"""
 	input: 
 		mapindex = config["genome"]["mapindex"],
+		gtf = config["genome"]["gtf"],
 		whitelist = config["barcode"]["whitelist"]
 	output: 
 		bam = "Result/STAR/{sample}/{sample}Aligned.sortedByCoord.out.bam",
@@ -40,6 +41,7 @@ rule STARsolo:
 		STAR \
 			--runMode alignReads \
 			--genomeDir {input.mapindex} \
+			--sjdbGTFfile {input.gtf} \
 			--runThreadN {threads} \
 			--outFileNamePrefix {params.outprefix} \
 			--outSAMtype BAM SortedByCoordinate \
