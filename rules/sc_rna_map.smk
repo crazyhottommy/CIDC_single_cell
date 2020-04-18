@@ -57,7 +57,8 @@ rule STARsolo:
 			--soloUMIfiltering MultiGeneUMI \
 			--readFilesIn {params.transcript} {params.barcode} --readFilesCommand zcat \
 			> {log} 2>&1
-		samtools index -b -@ {threads} {output.bam}
+			
+		samtools index -b -@ {threads} {output.bam} >> {log} 2>&1
 				
 		"""
 

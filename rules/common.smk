@@ -29,7 +29,9 @@ def check_files_exist(config):
 				raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), rsem)
 
 		# check all fastqs exist
-		samples = json.load(open(samples_json))
+		f2 = open(samples_json)
+		samples = json.load(f2)
+		f2.close()
 		for sample in samples.keys():
 			for read in samples[sample]:
 				for fastq in samples[sample][read]:
